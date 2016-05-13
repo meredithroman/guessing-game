@@ -1,0 +1,40 @@
+.buttons {
+	padding: 20px 0 0 0;
+}
+
+.buttons button {
+	border-radius: 3px;
+	padding: 10px 15px 10px 15px;
+    background-color: beige;
+}
+
+.buttons button:hover {
+	background-color: cadetblue;
+}
+
+main {
+	margin: auto;
+	width: 700px;
+	border-style: dotted;
+	border-radius: 10px;
+	border-color: grey;
+	padding: 50px 0 120px 0;
+}
+
+header {
+	font-family: 'Raleway', sans-serif;
+	margin: auto;
+	width: 900px;
+    color: dimgray;
+}
+
+header h1, header h2, form {
+	text-align: center;
+}
+
+input {
+	height: 25px;
+	font-size: 20px;
+	border-radius: 6px;
+    width: 261px;
+}
