@@ -3,8 +3,30 @@
 // Generate the Winning Number
 function generateWinningNumber(){
     var rand = Math.random() * 100;
+    var prevGuesses = []
 
-    return Math.ceil(rand);
+    // round winning number up to a whole number
+    var winningNumber = Math.ceil(rand);
+    
+    console.log(winningNumber);
+
+    // Check if the Player's Guess is the winning number 
+    function checkGuess(playersGuess) {
+        if (playersGuess == winningNumber) {
+            $('#message').text('Congratulations, you won!')
+        } else {
+            $('#message').text('Your guess was incorrect, please try again.')
+            // check if player has guessed this number before
+            // JQuery.inArray returns -1 if an item is not present in an array
+            var repeatGuess = $.inArray(playersGuess, prevGuesses) > -1;
+            if (!repeatGuess) {
+                prevGuesses.push(playersGuess);
+            }
+        }
+    }
+
+    return checkGuess;
+
 }
 
 // Fetch the Players Guess
@@ -30,21 +52,6 @@ function lowerOrHigher(){
 	// add code here
 }
 
-// Check if the Player's Guess is the winning number 
-function checkGuess(playersGuess, winningNumber, prevGuesses) {
-    if (playersGuess == winningNumber) {
-        $('#message').text('Congratulations, you won!')
-    } else {
-        $('#message').text('Your guess was incorrect, please try again.')
-        // check if player has guessed this number before
-        // JQuery.inArray returns -1 if an item is not present in an array
-        var repeatGuess = $.inArray(playersGuess, prevGuesses) > -1;
-        if (!repeatGuess) {
-            prevGuesses.push(playersGuess);
-        }
-    }
-}
-
 // Create a provide hint button that provides additional clues to the "Player"
 
 function provideHint(){
@@ -54,18 +61,20 @@ function provideHint(){
 /* **** Event Listeners/Handlers **** */
 
 $(document).ready(function() {
-    var winningNumber = generateWinningNumber();
-    var prevGuesses = []
+    // generate winning number and get checkGuess function
+    // probably want to wrap this all in a game running function
+    var checkGuess = generateWinningNumber();
 
-    console.log(winningNumber);
+    
     
     $('#guess').on('click', function(e) {
+        e.preventDefault();
         var playersGuess = playersGuessSubmission($('#enter-number'));
         // if the player has guessed a possible number
         if (playersGuess) {
-            checkGuess(playersGuess, winningNumber, prevGuesses)
+            checkGuess(playersGuess)
         }
-        e.preventDefault();
+        
     });
 
     // clicking the restart button reloads the page, resetting the game
