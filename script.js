@@ -8,8 +8,6 @@ function gameRunner() {
     }
 
     winningNumber = generateNumber();
-
-    console.log(winningNumber);
     
     // to store guesses
     var prevGuesses = []
@@ -22,13 +20,17 @@ function gameRunner() {
         distance = Math.ceil(distance / 10) * 10;
         var direction;
 
+        remainingGuesses = 5 - prevGuesses.length
+
         if (playersGuess > winningNumber) {
             direction = "higher";
         } else if (playersGuess < winningNumber) {
             direction = "lower";
         }
 
-        return "Your guess is " + direction + " and less than " + distance + " digits away from the Winning Number!"
+        return "Your guess is " + direction + " and less than " + distance + 
+            " digits away from the Winning Number! You have " + remainingGuesses +
+            " guesses remaining."
     }
 
     // Check if the Player's Guess is the winning number 
@@ -54,6 +56,8 @@ function gameRunner() {
 
     // Provide a hint to the player
     function provideHint(){
+        // make sure css is correct
+        $('#message').css({'color': 'inherit', 'font-weight': 'inherit'});
         if (!savedHint) {
             var hint = [winningNumber, generateNumber(), generateNumber()];
             // sort CORRECTLY
@@ -73,8 +77,8 @@ function gameRunner() {
 
 }
 
-// Fetch the Players Guess
-function playersGuessSubmission(input) {
+// Fetch the Player's Guess
+function playersGuessSubmission(input, checkGuess) {
     var playersGuess = input.val()
     // confirm that the value entered is a number
     var isANumber = $.isNumeric(playersGuess);
@@ -83,11 +87,10 @@ function playersGuessSubmission(input) {
     if (isANumber && numInRange) {
         $('#message').css({'color': 'inherit', 'font-weight': 'inherit'});
         input.val("");
-        return Number(playersGuess);
+        checkGuess(Number(playersGuess));
     } else {
         $('#message').text("Please guess a number between 1 and 100:")
         $('#message').css({'color': 'red', 'font-weight': 'bold'});
-        return false;
     }
 }
 
@@ -100,17 +103,18 @@ $(document).ready(function() {
     
     $('#guess').on('click', function(e) {
         e.preventDefault();
-        var playersGuess = playersGuessSubmission($('#enter-number'));
-        // if the player has guessed a possible number
-        if (playersGuess) {
-            checkGuess(playersGuess);
+        playersGuessSubmission($('#enter-number'), checkGuess);
+    });
+
+    $('#enter-number').keypress(function (e) {
+        if (e.which == 13) {
+            playersGuessSubmission($(this), checkGuess);
+            return false;
         }
     });
 
     $('#hint').on('click', function(e) {
         e.preventDefault();
-        // make sure css is correct
-        $('#message').css({'color': 'inherit', 'font-weight': 'inherit'});
         provideHint();
     });
 
