@@ -1,3 +1,7 @@
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
 .buttons {
 	padding: 20px 0 0 0;
 }
@@ -18,11 +22,10 @@ main {
 	border-style: dotted;
 	border-radius: 10px;
 	border-color: grey;
-	padding: 50px 0 120px 0;
+	padding: 30px 0 120px 0;
 }
 
 header {
-	font-family: 'Raleway', sans-serif;
 	margin: auto;
 	width: 900px;
     color: dimgray;
@@ -37,4 +40,9 @@ input {
 	font-size: 20px;
 	border-radius: 6px;
     width: 261px;
+}
+
+#message {
+	text-align: center;
+	padding-bottom: 20px;
 }

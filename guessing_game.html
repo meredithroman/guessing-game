@@ -5,20 +5,22 @@
     <title>Meredith's Very Excellent Guessing Game</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,500' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="script.js"></script>
   </head>
-  <body>
+  <body data-guesses="[]">
     <header>
     <h1>Hello, and welcome to the game</h1>
     <h2>I hope you enjoy your stay and, most importantly--good luck!</h2>
     </header>
     <main>
+        <div id="message">Please guess a number between 1 and 100:</div>
         <form>
-            <input></input>
+            <input id="enter-number"></input>
             <div class="buttons">
-                <button>Guess</button>
-                <button>Hint, please!</button>
-                <button>Restart</button>
+                <button id="guess">Guess</button>
+                <button id="hint">Hint, please!</button>
+                <button id="restart">Restart</button>
             </div>
         </form>
     </main>
